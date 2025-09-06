@@ -1,0 +1,40 @@
+networks:
+  db-int:
+    driver: bridge
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=inventory-db'
+      - 'POSTGRES_USER=inventory-user'
+      - 'POSTGRES_PASSWORD=pA33w0Rd'
+    ports:
+      - '5432:5432'
+    networks:
+      - db-int
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventory-user -d inventory-db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  liquibase-test:
+    image: liquibase/liquibase:4.27
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - LIQUIBASE_COMMAND_URL=jdbc:postgresql://postgres:5432/inventory-db
+      - LIQUIBASE_COMMAND_USERNAME=inventory-user
+      - LIQUIBASE_COMMAND_PASSWORD=pA33w0Rd
+      - LIQUIBASE_COMMAND_CHANGELOG_FILE=db.changeLog.xml
+      - LIQUIBASE_SEARCH_PATH=changelog,scripts
+      - USER=liquibase
+    volumes:
+      - ./liquibase/changelog:/liquibase/changelog
+      - ./liquibase/scripts:/liquibase/scripts
+    command:
+      - "update"
+    networks:
+      - db-int
