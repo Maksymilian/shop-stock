@@ -1,9 +1,16 @@
 # INVENTORY
 
+## KEYCLOAK JWT
+
+````
+curl -L -X POST 'http://localhost:7080/realms/inventory-dev/protocol/openid-connect/token' -H 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'client_id=inventory' --data-urlencode 'grant_type=password' --data-urlencode 'username=admin@inventory.com' --data-urlencode 'password=admin'  --data-urlencode  'client_secret=C0boqVzpEJUWS7wGp45PFBpsBEPNGoK7'
+````
+
 ## SOME POSTS FOR TESTING 
 
 #### Product 1: High-Tech Gadget
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
+````
+curl -X POST "http://localhost:8080/api/product" -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpMlVWaTgycUhMSzQtTHdES3hnRTJmRzlvaGs1VVFYeVNnNjBzejVqRmZJIn0.eyJleHAiOjE3NTc0NTY4ODksImlhdCI6MTc1NzQ1NjU4OSwianRpIjoiNmU5ZTQ4YzQtMWJmNS00MWE3LWIzYTctOWEwYTBkN2Q3OTkyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo3MDgwL3JlYWxtcy9pbnZlbnRvcnktZGV2IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjI4NGM4YjQzLWE4MTktNDk0OC1iNmNhLWI4N2E4ZTgxZWRkOSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImludmVudG9yeSIsInNlc3Npb25fc3RhdGUiOiJkYzgwNjNmZS03NDQ1LTRhMDEtODA4NC1hZDc4YjMzYzI1NTQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWludmVudG9yeSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImludmVudG9yeSI6eyJyb2xlcyI6WyJhZGQtcHJvZHVjdCJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZGM4MDYzZmUtNzQ0NS00YTAxLTgwODQtYWQ3OGIzM2MyNTU0IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJTdG9jayBLZWVwZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbkBpbnZlbnRvcnkuY29tIiwiZ2l2ZW5fbmFtZSI6IlN0b2NrIiwiZmFtaWx5X25hbWUiOiJLZWVwZXIiLCJlbWFpbCI6ImFkbWluQGludmVudG9yeS5jb20ifQ.GBHcZkUiLseHUPlLAwmcPS0ZqmfLb3JNhAWXB7g2OS0CMK1AF80nrRO4F3ueNPGY_qR0s1pjKUnnAu9CCyZevXT-IfLDZezY3eJRJlz-yKXjljDb2a4NB5o-mTA-x_14fEY92XRQXhiSIgldS8RIXUvXCftWS6NJWULBnzM4QxA4h8Sw0HTj6iNSQ0W36Y-7MVE4-P0f0k2QoUg9xkezghlw8s1xcmbzchq5N5nFLfuxn7owW7bZXjGhMZXoUGrPZSXO4YciTWF8B11UL8iiB50zaUjuzzr6IzEmwXNzGKUtwOiHIphr8oJ0HBZ1mE1QAbLpHMRDvIPw34f2wJ2FbQ"  -H "Content-Type: application/json" -d '{
 "name": "Quantum-Core Synthesizer",
 "createdAt": "2023-10-27T10:00:00Z",
 "sku": "QCS-733-G5",
@@ -17,8 +24,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Revolutionized my workflow. Unbelievable performance."
 }
 }'
-
+````
 #### Product 2: Organic Food Item
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Eco-Harvested Quinoa",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -33,8 +41,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Clean and fresh. A staple in my pantry now."
 }
 }'
-
+````
 #### Product 3: Home & Decor
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Minimalist Ceramic Vase",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -49,8 +58,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Adds a touch of elegance. The matte finish is perfect."
 }
 }'
-
+````
 #### Product 4: Fitness Equipment
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "DuraFlex Resistance Bands",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -65,8 +75,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Great for travel workouts. Feels very durable."
 }
 }'
-
+````
 #### Product 5: Personal Care
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Aloe Vera Soothing Gel",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -81,8 +92,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "So refreshing and light. Absorbs quickly."
 }
 }'
-
+````
 #### Product 6: Electronics Accessory
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Ultra-Slim Laptop Stand",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -97,8 +109,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Sleek and highly functional. A must-have for remote work."
 }
 }'
-
+````
 #### Product 7: Kitchen Gadget
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Smart Coffee Grinder",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -113,8 +126,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Perfect grind consistency every time. Worth the investment."
 }
 }'
-
+````
 #### Product 8: Pet Supplies
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Orthopedic Dog Bed",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -129,8 +143,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "My dog loves it! He sleeps like a king."
 }
 }'
-
+````
 #### Product 9: Baby Product
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Organic Cotton Swaddle",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -145,8 +160,9 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Super soft and cozy for the little one."
 }
 }'
-
+````
 #### Product 10: Gardening Tool
+````
 curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
 "name": "Ergonomic Hand Trowel",
 "createdAt": "2023-10-27T10:00:00Z",
@@ -161,163 +177,4 @@ curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/j
 "text": "Makes weeding so much easier. Comfortable grip."
 }
 }'
-
-#### Product 11: Office Supplies
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Premium Gel Pens (Set of 12)",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "PGP-12-COL",
-"price": "19.50",
-"barcode": "5678901234567",
-"stock": {
-"amount": 250,
-"locationId": "loc-A9"
-},
-"review": {
-"text": "Smooth writing, no smudging. Perfect for notes."
-}
-}'
-
-#### Product 12: Beauty Product
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Hydrating Face Serum",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "HFS-30-ML",
-"price": "45.00",
-"barcode": "6543210987654",
-"stock": {
-"amount": 60,
-"locationId": "loc-C2"
-},
-"review": {
-"text": "My skin feels so plump and hydrated. I love it!"
-}
-}'
-
-#### Product 13: Toy
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "STEM Robotics Kit",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "SRK-EDU-V1",
-"price": "150.00",
-"barcode": "1122334455668",
-"stock": {
-"amount": 20,
-"locationId": "loc-B3"
-},
-"review": {
-"text": "Kept my son engaged for hours. A great educational toy."
-}
-}'
-
-#### Product 14: Sportswear
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Moisture-Wicking Running Shirt",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "MWRS-L-GRN",
-"price": "39.99",
-"barcode": "9988776655443",
-"stock": {
-"amount": 120,
-"locationId": "loc-A8"
-},
-"review": {
-"text": "Very breathable and comfortable on long runs."
-}
-}'
-
-#### Product 15: Books
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "The Art of Modern Cooking",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "TAMC-B-001",
-"price": "28.50",
-"barcode": "5432167890123",
-"stock": {
-"amount": 70,
-"locationId": "loc-C5"
-},
-"review": {
-"text": "A stunning cookbook with beautiful recipes. A joy to read."
-}
-}'
-
-#### Product 16: Tool Kit
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Compact Screwdriver Set",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "CSS-15-PC",
-"price": "21.99",
-"barcode": "8765432101234",
-"stock": {
-"amount": 100,
-"locationId": "loc-B7"
-},
-"review": {
-"text": "Handy for all my small repairs. Good quality."
-}
-}'
-
-#### Product 17: Tech Gadget
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Smart Home Hub",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "SHH-WIFI-V3",
-"price": "89.99",
-"barcode": "1112223334445",
-"stock": {
-"amount": 45,
-"locationId": "loc-A3"
-},
-"review": {
-"text": "Seamlessly connects all my devices. A great central control."
-}
-}'
-
-#### Product 18: Art Supplies
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Professional Watercolor Paint Set",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "PWPS-24-PAL",
-"price": "65.00",
-"barcode": "2223334445556",
-"stock": {
-"amount": 35,
-"locationId": "loc-C6"
-},
-"review": {
-"text": "The pigments are vibrant and easy to blend. Highly recommend."
-}
-}'
-
-#### Product 19: Furniture
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Adjustable Office Chair",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "AOC-ERG-BLK",
-"price": "199.00",
-"barcode": "9998887776665",
-"stock": {
-"amount": 15,
-"locationId": "loc-B2"
-},
-"review": {
-"text": "So comfortable for long workdays. My back feels much better."
-}
-}'
-
-#### Product 20: Outdoor Gear
-curl -X POST "http://localhost:8080/api/product" -H "Content-Type: application/json" -d '{
-"name": "Ultralight Camping Tent",
-"createdAt": "2023-10-27T10:00:00Z",
-"sku": "UCT-2P-GRN",
-"price": "249.99",
-"barcode": "7776665554443",
-"stock": {
-"amount": 50,
-"locationId": "loc-A4"
-},
-"review": {
-"text": "Incredibly easy to set up and very lightweight. Perfect for backpacking."
-}
-}'
+````

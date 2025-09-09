@@ -1,17 +1,14 @@
-networks:
-  db-int:
-    driver: bridge
 services:
-  postgres:
-    image: 'postgres:latest'
+  postgres-inventory:
+    image: postgres:latest
     environment:
       - 'POSTGRES_DB=inventory-db'
       - 'POSTGRES_USER=inventory-user'
       - 'POSTGRES_PASSWORD=pA33w0Rd'
     ports:
       - '5432:5432'
-    networks:
-      - db-int
+    volumes:
+      - ./inventory-db-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U inventory-user -d inventory-db"]
       interval: 10s
@@ -22,10 +19,10 @@ services:
   liquibase-test:
     image: liquibase/liquibase:4.27
     depends_on:
-      postgres:
+      postgres-inventory:
         condition: service_healthy
     environment:
-      - LIQUIBASE_COMMAND_URL=jdbc:postgresql://postgres:5432/inventory-db
+      - LIQUIBASE_COMMAND_URL=jdbc:postgresql://postgres-inventory:5432/inventory-db
       - LIQUIBASE_COMMAND_USERNAME=inventory-user
       - LIQUIBASE_COMMAND_PASSWORD=pA33w0Rd
       - LIQUIBASE_COMMAND_CHANGELOG_FILE=db.changeLog.xml
@@ -36,5 +33,23 @@ services:
       - ./liquibase/scripts:/liquibase/scripts
     command:
       - "update"
-    networks:
-      - db-int
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 7080
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_LOG_LEVEL: info
+    healthcheck:
+      test: ["CMD", "true"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+    command: ["start-dev", "--http-port", "7080", "--import-realm"]
+    volumes:
+      - ./keycloak-config:/opt/keycloak/data/import
+    ports:
+      - "7080:7080"
+
