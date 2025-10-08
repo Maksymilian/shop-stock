@@ -1,6 +1,6 @@
 package com.example.inventory.repository
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import java.util.*
+import java.util.UUID
 
-internal interface ProductRepository : ReactiveCrudRepository<ProductEntity, UUID>
+interface ProductRepository : ReactiveCrudRepository<ProductEntity, UUID>

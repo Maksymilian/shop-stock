@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
+		<!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.example</groupId>
-	<artifactId>inventory</artifactId>
+	<artifactId>shop-stock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>inventory</name>
+
+	<name>shop-stock</name>
 	<description>Small app</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<properties>
 		<java.version>21</java.version>
-		<kotlin.version>1.9.25</kotlin.version>
+		<kotlin.version>2.2.0</kotlin.version>
+        <pact.version>4.5.0</pact.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,6 +82,12 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>au.com.dius.pact.provider</groupId>
+			<artifactId>spring6</artifactId>
+			<version>${pact.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -121,6 +120,7 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
+				<version>${kotlin.version}</version>
 				<configuration>
 					<args>
 						<arg>-Xjsr305=strict</arg>
@@ -137,7 +137,57 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tidy-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>validate-pom-format</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnTidyFailure>true</failOnTidyFailure>
+                    <format>true</format>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.43.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <kotlin>
+                        <includes>
+                            <include>src/main/kotlin/**/*.kt</include>
+                            <include>src/test/kotlin/**/*.kt</include>
+                        </includes>
+                        <ktlint/>
+                    </kotlin>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar=inline</argLine>
+                    <environmentVariables>
+                        <PACT_DO_NOT_TRACK>true</PACT_DO_NOT_TRACK>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
-
 </project>

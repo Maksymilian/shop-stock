@@ -13,5 +13,5 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 class InventoryApplication
 
 fun main(args: Array<String>) {
-	runApplication<InventoryApplication>(*args)
+    runApplication<InventoryApplication>(*args)
 }

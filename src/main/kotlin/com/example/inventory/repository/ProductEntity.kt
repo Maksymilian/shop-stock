@@ -7,7 +7,7 @@ import java.time.Instant
 import java.util.UUID
 
 @Table("product")
-internal data class ProductEntity(
+data class ProductEntity(
     @Id
     val id: UUID?,
     val name: String,
@@ -16,5 +16,5 @@ internal data class ProductEntity(
     val createdAt: Instant,
     val price: BigDecimal,
     val priceCurrency: String,
-    val review: String?
+    val review: String?,
 )

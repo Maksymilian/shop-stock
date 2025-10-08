@@ -1,6 +1,6 @@
 package com.example.inventory.handler
 
-import com.example.inventory.dto.ProductDTO
+import com.example.inventory.dto.CreateProductRequest
 import com.example.inventory.mapper.Mapper
 import com.example.inventory.service.CreateProductService
 import org.springframework.stereotype.Component
@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.created
 import reactor.core.publisher.Mono
 import java.net.URI
-import java.util.*
+import java.util.UUID
 
 @Component
-internal class ProductRouteHandler(val mapper: Mapper, val createProductService: CreateProductService) {
+class ProductRouteHandler(val mapper: Mapper, val createProductService: CreateProductService) {
 
     fun addProduct(request: ServerRequest): Mono<ServerResponse> {
         return request
-            .bodyToMono(ProductDTO::class.java)
+            .bodyToMono(CreateProductRequest::class.java)
             .map { mapper.mapToAggregate(UUID.randomUUID(), it) }
             .flatMap { product ->  createProductService.create(product)}
             .map(mapper::mapToDto)
