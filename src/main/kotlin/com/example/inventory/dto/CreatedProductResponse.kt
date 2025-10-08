@@ -1,12 +1,12 @@
-package com.example.inventory.model
+package com.example.inventory.dto
 
 import java.time.Instant
 import java.util.UUID
 
-data class CreatedProduct(
+data class CreatedProductResponse(
     val id: UUID,
     val name: String,
     val createdAt: Instant,
-    val sku: String,
     val barcode: String,
+    val sku: String,
 )

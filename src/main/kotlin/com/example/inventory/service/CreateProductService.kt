@@ -9,22 +9,21 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import reactor.core.publisher.Mono
 
 @Service
-internal class CreateProductService(
+class CreateProductService(
     val mapper: Mapper,
     val productRepository: ProductRepository,
-    val transactionalOperator: TransactionalOperator
+    val transactionalOperator: TransactionalOperator,
 ) {
-
     fun create(command: CreateProduct): Mono<CreatedProduct> {
         val entity = mapper.mapToEntity(command)
-        return productRepository.save(entity).`as` (transactionalOperator::transactional)
+        return productRepository.save(entity).`as`(transactionalOperator::transactional)
             .map {
                 CreatedProduct(
                     id = requireNotNull(it.id),
                     createdAt = it.createdAt,
                     sku = it.sku,
                     name = it.name,
-                    barcode = it.barcodeNumber
+                    barcode = it.barcodeNumber,
                 )
             }
     }
