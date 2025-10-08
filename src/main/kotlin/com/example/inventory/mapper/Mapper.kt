@@ -1,8 +1,8 @@
 package com.example.inventory.mapper
 
 import com.example.inventory.dto.CancelTransportRequest
-import com.example.inventory.dto.CreatedProductResponse
 import com.example.inventory.dto.CreateProductRequest
+import com.example.inventory.dto.CreatedProductResponse
 import com.example.inventory.dto.TransportRequest
 import com.example.inventory.model.BarcodeVO
 import com.example.inventory.model.CancelTransportCommand
@@ -41,20 +41,18 @@ class Mapper {
         )
     }
 
-    fun mapToAggregate(
-        request: Array<CancelTransportRequest>,
-    ) = request.map {
-        CancelTransportCommand(quantity = it.quantity, sku = it.sku)
-    }
+    fun mapToAggregate(request: Array<CancelTransportRequest>) =
+        request.map {
+            CancelTransportCommand(quantity = it.quantity, sku = it.sku)
+        }
 
-    fun mapToAggregate(
-        request: TransportRequest,
-    ) = with(request) {
-        TransportCommand(
-            orderNumber = orderNumber,
-            deductions = deductions.map { DeductionsTransport(quantity = it.quantity, sku = it.sku) }
-        )
-    }
+    fun mapToAggregate(request: TransportRequest) =
+        with(request) {
+            TransportCommand(
+                orderNumber = orderNumber,
+                deductions = deductions.map { DeductionsTransport(quantity = it.quantity, sku = it.sku) },
+            )
+        }
 
     fun mapToDto(createdProduct: CreatedProduct) =
         with(createdProduct) {

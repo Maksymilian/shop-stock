@@ -10,11 +10,12 @@ import org.springframework.web.reactive.function.server.router
 @Configuration
 class ProductRouteConfiguration {
     @Bean
-    fun productApiRoutes(handler: ProductRouteHandler) = router {
-        accept(APPLICATION_JSON).nest {
-            POST("/api/product", handler::addProduct)
+    fun productApiRoutes(handler: ProductRouteHandler) =
+        router {
+            accept(APPLICATION_JSON).nest {
+                POST("/api/product", handler::addProduct)
+            }
         }
-    }
 
     @Bean
     fun stockApiRoutes(handler: StockRouteHandler) =

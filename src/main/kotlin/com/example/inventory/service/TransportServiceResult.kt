@@ -7,4 +7,5 @@ sealed class TransportServiceResult<out T> {
 }
 
 class TransportRequestSuccess()
+
 class TransportCancelSuccess()

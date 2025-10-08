@@ -28,18 +28,18 @@ import reactor.core.publisher.Mono
 @PactFolder("pacts")
 @SpringBootTest(webEnvironment = DEFINED_PORT)
 class StockProviderContractTest {
-
     @Autowired
-    lateinit private var handler: StockRouteHandler
+    private lateinit var handler: StockRouteHandler
 
     @MockitoBean
     lateinit var transportService: TransportService
 
     @BeforeEach
     fun setup(context: PactVerificationContext) {
-        context.target = WebFluxSpring6Target(
-            ProductRouteConfiguration().stockApiRoutes(handler)
-        )
+        context.target =
+            WebFluxSpring6Target(
+                ProductRouteConfiguration().stockApiRoutes(handler),
+            )
     }
 
     @TestTemplate
@@ -55,10 +55,10 @@ class StockProviderContractTest {
                 listOf(
                     CancelTransportCommand(
                         quantity = 4,
-                        sku = "TSHIRT-REG-BLU-L-25"
-                    )
-                )
-            )
+                        sku = "TSHIRT-REG-BLU-L-25",
+                    ),
+                ),
+            ),
         ).thenReturn(Mono.just(TransportServiceResult.TransportServiceResultSuccess(TransportCancelSuccess())))
     }
 
@@ -69,9 +69,8 @@ class StockProviderContractTest {
                 TransportCommand(
                     orderNumber = "20251004-00042",
                     deductions = listOf(DeductionsTransport(quantity = 4, sku = "TSHIRT-REG-BLU-L-25")),
-                )
-            )
+                ),
+            ),
         ).thenReturn(Mono.just(TransportServiceResult.TransportServiceResultSuccess(TransportRequestSuccess())))
     }
-
 }

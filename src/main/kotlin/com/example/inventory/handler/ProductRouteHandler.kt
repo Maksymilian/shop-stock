@@ -13,13 +13,12 @@ import java.util.UUID
 
 @Component
 class ProductRouteHandler(val mapper: Mapper, val createProductService: CreateProductService) {
-
     fun addProduct(request: ServerRequest): Mono<ServerResponse> {
         return request
             .bodyToMono(CreateProductRequest::class.java)
             .map { mapper.mapToAggregate(UUID.randomUUID(), it) }
-            .flatMap { product ->  createProductService.create(product)}
+            .flatMap { product -> createProductService.create(product) }
             .map(mapper::mapToDto)
-            .flatMap { created -> created(URI.create("http://localhost:8020/test/" + created.id)).bodyValue(created)}
+            .flatMap { created -> created(URI.create("http://localhost:8020/test/" + created.id)).bodyValue(created) }
     }
 }

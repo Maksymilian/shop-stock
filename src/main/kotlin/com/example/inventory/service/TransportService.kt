@@ -6,5 +6,6 @@ import reactor.core.publisher.Mono
 
 interface TransportService {
     fun request(product: TransportCommand): Mono<TransportServiceResult<TransportRequestSuccess>>
+
     fun cancel(product: List<CancelTransportCommand>): Mono<TransportServiceResult<TransportCancelSuccess>>
 }
